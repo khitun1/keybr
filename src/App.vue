@@ -24,6 +24,7 @@
   const errLaw = ref(false);
 
   const addActive = (letter: string) => {
+    count.value = 0;
     const cur = document.getElementById('sel' + letter)?.classList;
     if (cur.contains('active')) {
       cur.remove('active');
@@ -33,6 +34,7 @@
       cur.add('active');
       actives.value.push(letter);
     }
+    document.getElementById('sel' + letter)?.blur();
     generateText();
   }
   const generateString = () => {
@@ -71,6 +73,10 @@
     const upper = e.key.toUpperCase();
     let color = '';
     document.getElementById(upper)?.classList.add('active');
+    if (upper === ' ')
+    {
+      document.getElementById('Space')?.classList.add('active');
+    }
     if (textArr.value[count.value] === upper) {
       color = errLaw.value ? 'red' : 'gray';
       console.log(color)
@@ -94,7 +100,12 @@
   );
 
   document.addEventListener("keyup", (e) => {
-    document.getElementById(e.key.toUpperCase())?.classList.remove('active');
+    let upper = e.key.toUpperCase();
+    document.getElementById(upper)?.classList.remove('active');
+    if (upper === ' ')
+    {
+      document.getElementById('Space')?.classList.remove('active');
+    }
   });
 
 </script>
